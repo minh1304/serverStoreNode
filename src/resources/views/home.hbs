@@ -1,0 +1,30 @@
+{{!-- <h1>{{courses}}</h1>
+ --}}
+
+<div class='container'>
+    <div class='mt-4'>
+        <div class='row'>
+            {{#each products}}
+                <div class='col-sm-6 col-lg-4'>
+                    <div class='card card-course-item'>
+                        <a href='/products/{{this.id}}'><img
+                                class='card-img-top'
+                                src='{{this.image}}'
+                                alt='{{this.title}}'
+                            /></a>
+                        <div class='card-body'>
+                            <a href='/products/{{this.id}}'><h5
+                                    class='card-title'
+                                >{{this.title}}</h5></a>
+                            <p class='card-text'>{{this.description}}</p>
+                            <a href='/products/category/{{this.category}}' class='btn btn-primary'>
+                                {{this.category}}
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
