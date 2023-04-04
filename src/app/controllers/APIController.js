@@ -5,13 +5,15 @@ import {
     mongooseToObject,
 } from '../../util/mongoose';
 
+const PAGE_SIZE = 4;
+
 class APIController {
     // [GET] /products
     //get all products
     async getAllProducts(req, res, next) {
         try {
             let productQuery = Product.find({}).sortable(req);
-
+            productQuery.pageTable(req, PAGE_SIZE);
             //đem vô file models/Product
             // if (req.query.hasOwnProperty('sort')) {
             //     const sort = req.query.sort === 'desc' ? -1 : 1;

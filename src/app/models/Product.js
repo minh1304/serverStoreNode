@@ -21,10 +21,24 @@ const ProductSchema = new Schema(
 );
 
 //custom query
+//query sort
 ProductSchema.query.sortable = function (req) {
     if (req.query.hasOwnProperty('sort')) {
         const sort = req.query.sort === 'desc' ? -1 : 1;
         return this.sort({ price: sort });
+    }
+    return this;
+};
+
+//query pagination 
+ProductSchema.query.pageTable = function (req, PAGE_SIZE) {
+    if (req.query.hasOwnProperty('page')) {
+        var page = req.query.page; // "4"
+        if (page) {
+            page = parseInt(page);
+            var skip = (page - 1) * PAGE_SIZE; // "12"
+            return this.skip(skip).limit(PAGE_SIZE);
+        }
     }
     return this;
 };
