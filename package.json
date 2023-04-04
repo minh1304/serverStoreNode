@@ -24,6 +24,7 @@
     "homepage": "https://github.com/minh1304/nodejs_test#readme",
     "dependencies": {
         "body-parser": "1.19.0",
+        "cors": "^2.8.5",
         "express": "^4.18.2",
         "express-handlebars": "^7.0.4",
         "method-override": "^3.0.0",

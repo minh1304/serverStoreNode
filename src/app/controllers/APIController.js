@@ -10,23 +10,29 @@ class APIController {
     //get all products
     async getAllProducts(req, res, next) {
         try {
-            const products = await Product.find({});
-            let notFound = false;
+            let productQuery = Product.find({}).sortable(req);
+
+            //đem vô file models/Product
+            // if (req.query.hasOwnProperty('sort')) {
+            //     const sort = req.query.sort === 'desc' ? -1 : 1;
+            //     productQuery = productQuery.sort({ price: sort });
+            // }
+            const products = await productQuery;
             if (products.length === 0) {
-                notFound = true;
-            }
-            if (!notFound) {
+                res.status(404).json({
+                    message: 'No products found',
+                });
+            } else {
                 res.status(200).json({
                     message: 'OK',
                     products: multipleMongooseToObject(products),
                 });
-            } else {
-                res.status(404).json({
-                    message: 'Not found',
-                });
             }
         } catch (error) {
-            next(error);
+            console.error(error);
+            res.status(500).json({
+                message: 'Internal Server Error',
+            });
         }
     }
 
@@ -66,7 +72,7 @@ class APIController {
         try {
             const products = await Product.find({
                 category: req.params.category,
-            });
+            }).sortable(req);
             let notFound = false;
             if (products.length === 0) {
                 notFound = true;
