@@ -10,3 +10,17 @@
 | Get all categories|/api/v1/products/categories|
 |Get product in specific category| /api/v1/products/category/jewelery|
 
+
+
+User Login
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: urlencoded,
+  redirect: 'follow'
+};
+
+fetch(".../api/v1/auth/login", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
