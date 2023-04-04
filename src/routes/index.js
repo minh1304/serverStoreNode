@@ -3,6 +3,7 @@ import siteRouter from './site';
 import courseRouter from './course';
 import productRouter from './product';
 import meRouter from './me';
+import loginRouter from './login';
 import apiRouter from './api'
 
 
@@ -12,6 +13,7 @@ function route(app) {
     app.use('/courses', courseRouter);
     app.use('/products', productRouter);
     app.use('/me', meRouter);
+    app.use('/login', loginRouter);
     app.use('/', siteRouter);
 }
 export default route;

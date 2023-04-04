@@ -1,9 +1,11 @@
-// import Course from '../models/Course';
+import Account from '../models/Account';
 import Product from '../models/Product';
 import {
     multipleMongooseToObject,
     mongooseToObject,
 } from '../../util/mongoose';
+const jwt = require('jsonwebtoken');
+
 
 const PAGE_SIZE = 4;
 
@@ -87,6 +89,31 @@ class APIController {
             } else {
                 res.status(404).json({
                     message: 'Not found',
+                });
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //[POST] /auth/login
+    async login(req, res, next) {
+        try {
+            var username = req.body.username;
+            var password = req.body.password;
+            const account = await Account.findOne({
+                username: username,
+                password: password,
+            });
+            if (account) {
+                const token = jwt.sign({ id: account.id }, 'mk');
+                return res.status(200).json({
+                    message: 'OK',
+                    token: token,
+                });
+            } else {
+                return res.status(401).json({
+                    message: 'Invalid username or password',
                 });
             }
         } catch (error) {
