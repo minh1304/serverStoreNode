@@ -43,7 +43,9 @@ class APIController {
     //GET single product
     async getSingleProduct(req, res, next) {
         try {
-            const product = await Product.findOne({ id: req.params.id });
+            const product = await Product.findOne({
+                _id: req.params.id,
+            });
             res.status(200).json({
                 message: 'OK',
                 product: mongooseToObject(product),
@@ -123,7 +125,7 @@ class APIController {
     //[GET] /auth/me
     async getCurrentUser(req, res, next) {
         try {
-            res.json(req.data)
+            res.json(req.data);
         } catch (error) {
             next(error);
         }
@@ -133,24 +135,23 @@ class APIController {
     //Get all users with role is ADMIN
     async getAllUsers(req, res, next) {
         try {
-            const accounts = await Account.find({role: 'client'})
-            let notFound = false; 
-            if(accounts.length === 0 ) {
-                notFound = true
+            const accounts = await Account.find({ role: 'client' });
+            let notFound = false;
+            if (accounts.length === 0) {
+                notFound = true;
             }
-            if(!notFound) {
+            if (!notFound) {
                 res.status(200).json({
                     message: 'OK',
                     accounts: multipleMongooseToObject(accounts),
                 });
-            }
-            else {
+            } else {
                 res.status(404).json({
                     message: 'Not found',
                 });
             }
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 }

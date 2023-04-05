@@ -50,16 +50,20 @@ router.get('/auth/me', checkToken, APIController.getCurrentUser);
 //get all users with admin
 router.get('/auth/admin/users', checkToken, checkAdmin, APIController.getAllUsers);
 
-//all products
-router.get('/products', APIController.getAllProducts);
+
 
 //all category
 router.get('/products/categories', APIController.getCategories);
 
+//single product
+router.get('/products/:id', APIController.getSingleProduct);
+
+
 //get product in specific category
 router.get('/products/category/:category', APIController.getListOfCategory);
 
-//single product
-router.get('/products/:id', APIController.getSingleProduct);
+
+//all products
+router.get('/products', APIController.getAllProducts);
 
 export default router;
