@@ -6,7 +6,6 @@ import {
 } from '../../util/mongoose';
 const jwt = require('jsonwebtoken');
 
-
 const PAGE_SIZE = 4;
 
 class APIController {
@@ -106,7 +105,7 @@ class APIController {
                 password: password,
             });
             if (account) {
-                const token = jwt.sign({ id: account.id }, 'mk');
+                const token = jwt.sign({ _id: account._id }, 'mk');
                 return res.status(200).json({
                     message: 'OK',
                     token: token,
@@ -116,6 +115,15 @@ class APIController {
                     message: 'Invalid username or password',
                 });
             }
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //[GET] /auth/me
+    async getCurrentUser(req, res, next) {
+        try {
+            res.json('Vào được rồi');
         } catch (error) {
             next(error);
         }
