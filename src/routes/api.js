@@ -35,11 +35,20 @@ const checkToken = (req, res, next) => {
     }
 };
 
+const checkAdmin = (req, res, next) => {
+    if (req.data.role === 'admin') {
+        next();
+    } else {
+        res.json('NOT PERMISSION');
+    }
+};
+
 //get current user
 // router.get('/auth/me', checkToken, APIController.getCurrentUser);
-router.get('/auth/me', checkToken, (req, res, next) => {
-    res.json(req.data);
-});
+router.get('/auth/me', checkToken, APIController.getCurrentUser);
+
+//get all users with admin
+router.get('/auth/admin/users', checkToken, checkAdmin, APIController.getAllUsers);
 
 //all products
 router.get('/products', APIController.getAllProducts);

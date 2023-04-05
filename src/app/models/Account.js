@@ -5,9 +5,11 @@ const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 const AccountSchema = new Schema(
     {
+        email: { type: String },
         username: { type: String },
         password: { type: String },
-       
+        role: { type: String },
+
         slug: {
             type: String,
             slug: 'name',
@@ -17,7 +19,6 @@ const AccountSchema = new Schema(
         timestamps: true,
     },
 );
-
 
 AccountSchema.plugin(slug);
 AccountSchema.plugin(mongooseDelete, {

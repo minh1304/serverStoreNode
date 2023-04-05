@@ -123,9 +123,34 @@ class APIController {
     //[GET] /auth/me
     async getCurrentUser(req, res, next) {
         try {
-            res.json('Vào được rồi');
+            res.json(req.data)
         } catch (error) {
             next(error);
+        }
+    }
+
+    //[GET] /auth/admin/user
+    //Get all users with role is ADMIN
+    async getAllUsers(req, res, next) {
+        try {
+            const accounts = await Account.find({role: 'client'})
+            let notFound = false; 
+            if(accounts.length === 0 ) {
+                notFound = true
+            }
+            if(!notFound) {
+                res.status(200).json({
+                    message: 'OK',
+                    accounts: multipleMongooseToObject(accounts),
+                });
+            }
+            else {
+                res.status(404).json({
+                    message: 'Not found',
+                });
+            }
+        } catch (error) {
+            next(error)
         }
     }
 }
