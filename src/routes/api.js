@@ -69,6 +69,19 @@ router.get(
     APIController.getAllUsers,
 );
 
+
+//get all products with admin 
+router.get('/auth/admin/products', checkToken, checkAdmin, APIController.getAllProductsAdmin)
+
+//post product with admin
+router.post(
+    '/auth/admin/product/add',
+    checkToken,
+    checkAdmin,
+    APIController.addProductsAdmin,
+);
+
+
 //all category
 router.get('/products/categories', APIController.getCategories);
 

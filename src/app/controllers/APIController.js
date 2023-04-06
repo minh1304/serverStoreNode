@@ -119,7 +119,6 @@ class APIController {
             } else {
                 res.status(501).json('đã có tài khoản, Không cho đăng ký');
             }
-
         } catch (error) {
             next(error);
         }
@@ -178,6 +177,45 @@ class APIController {
                     message: 'Not found',
                 });
             }
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async getAllProductsAdmin(req, res, next) {
+        try {
+            const products = await Product.find({})
+                .sortable(req)
+                .pageTable(req, PAGE_SIZE);
+            let notFound = false;
+            if (products.length === 0) {
+                notFound = true;
+            }
+            if (!notFound) {
+                res.status(200).json({
+                    message: 'OK',
+                    products: multipleMongooseToObject(products),
+                });
+            } else {
+                res.status(404).json({
+                    message: 'Not found',
+                });
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
+    //[POST] add product
+    async addProductsAdmin(req, res, next) {
+        try {
+            const formData = req.body;
+            const product = new Product(formData);
+            product
+                .save()
+                .then(() => {
+                    res.json('Thêm thành công');
+                })
+                .catch((err) => res.json(err));
         } catch (error) {
             next(error);
         }
