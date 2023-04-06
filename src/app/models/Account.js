@@ -5,11 +5,12 @@ const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 const AccountSchema = new Schema(
     {
-        email: { type: String },
+        email: { type: String, default: 'ahhihi@gmail.com' },
         name: { type: Object },
+        phone: { type: Number},
         username: { type: String },
         password: { type: String },
-        role: { type: String },
+        role: { type: String, default: 'client' },
 
         slug: {
             type: String,

@@ -117,20 +117,9 @@ class APIController {
                     })
                     .catch((err) => res.json(err));
             } else {
-                res.json('đã có tài khoản, Không cho đăng ký');
+                res.status(501).json('đã có tài khoản, Không cho đăng ký');
             }
 
-            // if (isAccount) {
-            //     res.json('Có rồi không cho đăng ký');
-            // } else {
-            //     const account = new Account(formData);
-            //     account
-            //         .save()
-            //         .then(() => {
-            //             res.json('Đã đăng ký thành công');
-            //         })
-            //         .catch((err) => res.json(err));
-            // }
         } catch (error) {
             next(error);
         }
