@@ -97,6 +97,45 @@ class APIController {
         }
     }
 
+    //[POST] /auth/register
+    async register(req, res, next) {
+        try {
+            const formData = req.body;
+            const isAccount = await Account.findOne({
+                username: formData.username,
+            });
+            let notFound = false;
+            if (isAccount) {
+                notFound = true;
+            }
+            if (!notFound) {
+                const account = new Account(formData);
+                account
+                    .save()
+                    .then(() => {
+                        res.json('Đã đăng ký thành công');
+                    })
+                    .catch((err) => res.json(err));
+            } else {
+                res.json('đã có tài khoản, Không cho đăng ký');
+            }
+
+            // if (isAccount) {
+            //     res.json('Có rồi không cho đăng ký');
+            // } else {
+            //     const account = new Account(formData);
+            //     account
+            //         .save()
+            //         .then(() => {
+            //             res.json('Đã đăng ký thành công');
+            //         })
+            //         .catch((err) => res.json(err));
+            // }
+        } catch (error) {
+            next(error);
+        }
+    }
+
     //[POST] /auth/login
     async login(req, res, next) {
         try {

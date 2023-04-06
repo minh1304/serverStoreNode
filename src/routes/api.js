@@ -4,8 +4,6 @@ import APIController from '../app/controllers/APIController';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-//login
-router.post('/auth/login', APIController.login);
 
 //MiddleWare check token
 const checkToken = (req, res, next) => {
@@ -35,6 +33,8 @@ const checkToken = (req, res, next) => {
     }
 };
 
+
+//MiddleWare check isAdmin
 const checkAdmin = (req, res, next) => {
     if (req.data.role === 'admin') {
         next();
@@ -43,14 +43,31 @@ const checkAdmin = (req, res, next) => {
     }
 };
 
+//middleware check username exists or not
+
+// const checkUsername = (req, res, next) => {
+//     // const account = await Account.find({username})
+// }
+
+
+//register
+router.post('/auth/register', APIController.register)
+
+//login
+router.post('/auth/login', APIController.login);
+
+
 //get current user
 // router.get('/auth/me', checkToken, APIController.getCurrentUser);
 router.get('/auth/me', checkToken, APIController.getCurrentUser);
 
 //get all users with admin
-router.get('/auth/admin/users', checkToken, checkAdmin, APIController.getAllUsers);
-
-
+router.get(
+    '/auth/admin/users',
+    checkToken,
+    checkAdmin,
+    APIController.getAllUsers,
+);
 
 //all category
 router.get('/products/categories', APIController.getCategories);
@@ -58,10 +75,8 @@ router.get('/products/categories', APIController.getCategories);
 //single product
 router.get('/products/:id', APIController.getSingleProduct);
 
-
 //get product in specific category
 router.get('/products/category/:category', APIController.getListOfCategory);
-
 
 //all products
 router.get('/products', APIController.getAllProducts);
