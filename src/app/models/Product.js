@@ -4,8 +4,8 @@ const mongooseDelete = require('mongoose-delete');
 
 const Schema = mongoose.Schema;
 const ProductSchema = new Schema(
-    {   
-        title: {type: String},
+    {
+        title: { type: String },
         name: { type: String },
         category: { type: String },
         description: { type: String, minLength: 1 },
@@ -31,7 +31,7 @@ ProductSchema.query.sortable = function (req) {
     return this;
 };
 
-//query pagination 
+//query pagination
 ProductSchema.query.pageTable = function (req, PAGE_SIZE) {
     if (req.query.hasOwnProperty('page')) {
         var page = req.query.page; // "4"
@@ -43,12 +43,12 @@ ProductSchema.query.pageTable = function (req, PAGE_SIZE) {
     }
     return this;
 };
+// loại bỏ trường "deleted" mặc định của mongoose-delete
+const options = { deletedAt: true, overrideMethods: 'all' };
+delete ProductSchema.methods.delete;
 
 ProductSchema.plugin(slug);
-ProductSchema.plugin(mongooseDelete, {
-    deletedAt: true,
-    overrideMethods: 'all',
-});
+ProductSchema.plugin(mongooseDelete, options);
 
 const Product = mongoose.model('Product', ProductSchema);
 export default Product;

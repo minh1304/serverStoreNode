@@ -220,5 +220,41 @@ class APIController {
             next(error);
         }
     }
+    //[DELETE] remove soft
+    async deleteSoft(req, res, next) {
+        try {
+            Product.delete({ _id: req.params.id })
+                .then(() => {
+                    res.json('đã xóa mềm');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    res.json('Error');
+                });
+        } catch (error) {
+            next(error);
+        }
+    }
+    async getTrash(req, res, next) {
+        try {
+            const products = await Product.findWithDeleted({deleted: true});
+            let notFound = false;
+            if (products.length === 0) {
+                notFound = true;
+            }
+            if (!notFound) {
+                res.status(200).json({
+                    message: 'OK',
+                    products: multipleMongooseToObject(products),
+                });
+            } else {
+                res.status(404).json({
+                    message: 'Not found',
+                });
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 export default new APIController();

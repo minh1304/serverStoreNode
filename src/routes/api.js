@@ -4,7 +4,6 @@ import APIController from '../app/controllers/APIController';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-
 //MiddleWare check token
 const checkToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
@@ -33,7 +32,6 @@ const checkToken = (req, res, next) => {
     }
 };
 
-
 //MiddleWare check isAdmin
 const checkAdmin = (req, res, next) => {
     if (req.data.role === 'admin') {
@@ -49,13 +47,11 @@ const checkAdmin = (req, res, next) => {
 //     // const account = await Account.find({username})
 // }
 
-
 //register
-router.post('/auth/register', APIController.register)
+router.post('/auth/register', APIController.register);
 
 //login
 router.post('/auth/login', APIController.login);
-
 
 //get current user
 // router.get('/auth/me', checkToken, APIController.getCurrentUser);
@@ -69,9 +65,20 @@ router.get(
     APIController.getAllUsers,
 );
 
+router.get(
+    '/auth/admin/products/trash',
+    checkToken,
+    checkAdmin,
+    APIController.getTrash,
+);
 
-//get all products with admin 
-router.get('/auth/admin/products', checkToken, checkAdmin, APIController.getAllProductsAdmin)
+//get all products with admin
+router.get(
+    '/auth/admin/products',
+    checkToken,
+    checkAdmin,
+    APIController.getAllProductsAdmin,
+);
 
 //post product with admin
 router.post(
@@ -81,6 +88,13 @@ router.post(
     APIController.addProductsAdmin,
 );
 
+//soft delete with admin
+router.delete(
+    '/auth/admin/:id/force',
+    checkToken,
+    checkAdmin,
+    APIController.deleteSoft,
+);
 
 //all category
 router.get('/products/categories', APIController.getCategories);
