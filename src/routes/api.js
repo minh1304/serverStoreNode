@@ -95,6 +95,8 @@ router.delete(
     checkAdmin,
     APIController.deleteSoft,
 );
+// restore 
+router.patch('/auth/admin/:id/restore', checkToken, checkAdmin, APIController.restore)
 
 //all category
 router.get('/products/categories', APIController.getCategories);

@@ -235,9 +235,22 @@ class APIController {
             next(error);
         }
     }
+    //Restore in trash
+    async restore(req, res, next) {
+        try {
+            Product.restore({ _id: req.params.id })
+            .then(() => {
+                res.json('Khôi phục thành công');
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //get trash
     async getTrash(req, res, next) {
         try {
-            const products = await Product.findWithDeleted({deleted: true});
+            const products = await Product.findWithDeleted({ deleted: true });
             let notFound = false;
             if (products.length === 0) {
                 notFound = true;
