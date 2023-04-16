@@ -103,6 +103,12 @@ router.patch(
     checkAdmin,
     APIController.allow,
 );
+router.patch(
+    '/auth/admin/:id/reject',
+    checkToken,
+    checkAdmin,
+    APIController.reject,
+);
 // restore
 router.patch(
     '/auth/admin/:id/restore',

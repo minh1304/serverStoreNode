@@ -304,6 +304,16 @@ class APIController {
             next(error);
         }
     }
+
+    async reject(req, res, next) {
+        try {
+            Order.updateOne({ _id: req.params.id }, { status: 'Rejected' }).then(() => {
+                res.json('Từ chối thành công');
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
     async postOrder(req, res, next) {
         try {
             const formData = req.body;
