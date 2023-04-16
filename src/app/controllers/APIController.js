@@ -261,7 +261,7 @@ class APIController {
                     products: multipleMongooseToObject(products),
                 });
             } else {
-                res.json("kh có sp")
+                res.json('kh có sp');
             }
         } catch (error) {
             res.status(404).json({
@@ -290,7 +290,6 @@ class APIController {
                     message: 'Not found',
                 });
             }
-
         } catch (error) {
             next(error);
         }
@@ -310,7 +309,30 @@ class APIController {
             next(error);
         }
     }
+    //get order
+    async getMyOrder(req, res, next) {
+        try {
 
-
+            const products = await Order.find({ username: req.data.username })
+                .sortable(req)
+                .pageTable(req, PAGE_SIZE);
+            let notFound = false;
+            if (products.length === 0) {
+                notFound = true;
+            }
+            if (!notFound) {
+                res.status(200).json({
+                    message: 'OK',
+                    products: multipleMongooseToObject(products),
+                });
+            } else {
+                res.status(404).json({
+                    message: 'Not found',
+                });
+            }
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 export default new APIController();

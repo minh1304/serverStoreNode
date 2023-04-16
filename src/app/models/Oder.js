@@ -8,6 +8,7 @@ const OrderSchema = new Schema(
         address: { type: String },
         status: { type: String, default: "Processing"},
         name: { type: String },
+        username: { type: String },
         note: { type: String },
         phoneNumber: { type: String },
         purchased: {type: Object},

@@ -119,5 +119,5 @@ router.post('/order',checkToken, APIController.postOrder)
 
 
 //get my order 
-router.get('/order', checkToken, APIController.getMyOrder)
+router.get('/order/me', checkToken, APIController.getMyOrder)
 export default router;
