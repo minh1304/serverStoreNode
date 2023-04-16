@@ -1,5 +1,6 @@
 import Account from '../models/Account';
 import Product from '../models/Product';
+import Order from '../models/Oder';
 import {
     multipleMongooseToObject,
     mongooseToObject,
@@ -238,8 +239,7 @@ class APIController {
     //Restore in trash
     async restore(req, res, next) {
         try {
-            Product.restore({ _id: req.params.id })
-            .then(() => {
+            Product.restore({ _id: req.params.id }).then(() => {
                 res.json('Khôi phục thành công');
             });
         } catch (error) {
@@ -261,13 +261,56 @@ class APIController {
                     products: multipleMongooseToObject(products),
                 });
             } else {
+                res.json("kh có sp")
+            }
+        } catch (error) {
+            res.status(404).json({
+                message: 'Not found',
+            });
+        }
+    }
+
+    //get order
+    async getOrder(req, res, next) {
+        try {
+            const products = await Order.find({})
+                .sortable(req)
+                .pageTable(req, PAGE_SIZE);
+            let notFound = false;
+            if (products.length === 0) {
+                notFound = true;
+            }
+            if (!notFound) {
+                res.status(200).json({
+                    message: 'OK',
+                    products: multipleMongooseToObject(products),
+                });
+            } else {
                 res.status(404).json({
                     message: 'Not found',
                 });
             }
+
         } catch (error) {
             next(error);
         }
     }
+
+    async postOrder(req, res, next) {
+        try {
+            const formData = req.body;
+            const product = new Order(formData);
+            product
+                .save()
+                .then(() => {
+                    res.json('Thêm thành công');
+                })
+                .catch((err) => res.json(err));
+        } catch (error) {
+            next(error);
+        }
+    }
+
+
 }
 export default new APIController();

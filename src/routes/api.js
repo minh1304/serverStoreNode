@@ -110,4 +110,14 @@ router.get('/products/category/:category', APIController.getListOfCategory);
 //all products
 router.get('/products', APIController.getAllProducts);
 
+//all order admin
+router.get('/order', APIController.getOrder)
+
+
+//add order 
+router.post('/order',checkToken, APIController.postOrder)
+
+
+//get my order 
+router.get('/order', checkToken, APIController.getMyOrder)
 export default router;
