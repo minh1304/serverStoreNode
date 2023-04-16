@@ -295,6 +295,15 @@ class APIController {
         }
     }
 
+    async allow(req, res, next) {
+        try {
+            Order.updateOne({ _id: req.params.id }, { status: 'Shipping' }).then(() => {
+                res.json('Thành công');
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
     async postOrder(req, res, next) {
         try {
             const formData = req.body;
@@ -312,7 +321,6 @@ class APIController {
     //get order
     async getMyOrder(req, res, next) {
         try {
-
             const products = await Order.find({ username: req.data.username })
                 .sortable(req)
                 .pageTable(req, PAGE_SIZE);

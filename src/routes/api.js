@@ -95,8 +95,21 @@ router.delete(
     checkAdmin,
     APIController.deleteSoft,
 );
-// restore 
-router.patch('/auth/admin/:id/restore', checkToken, checkAdmin, APIController.restore)
+
+//Allow
+router.patch(
+    '/auth/admin/:id/order',
+    checkToken,
+    checkAdmin,
+    APIController.allow,
+);
+// restore
+router.patch(
+    '/auth/admin/:id/restore',
+    checkToken,
+    checkAdmin,
+    APIController.restore,
+);
 
 //all category
 router.get('/products/categories', APIController.getCategories);
@@ -111,13 +124,11 @@ router.get('/products/category/:category', APIController.getListOfCategory);
 router.get('/products', APIController.getAllProducts);
 
 //all order admin
-router.get('/order', APIController.getOrder)
+router.get('/order', checkToken, checkAdmin, APIController.getOrder);
 
+//add order
+router.post('/order', checkToken, APIController.postOrder);
 
-//add order 
-router.post('/order',checkToken, APIController.postOrder)
-
-
-//get my order 
-router.get('/order/me', checkToken, APIController.getMyOrder)
+//get my order
+router.get('/order/me', checkToken, APIController.getMyOrder);
 export default router;
