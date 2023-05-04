@@ -2,7 +2,6 @@ import path from 'path';
 import express from 'express';
 import { engine } from 'express-handlebars';
 import methodOverride from 'method-override';
-import morgan from 'morgan';
 import cors from 'cors';
 import data from './config/db/index.js';
 import { fileURLToPath } from 'url';
@@ -22,7 +21,7 @@ import route from './routes/index.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(morgan('combined'))
+
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
