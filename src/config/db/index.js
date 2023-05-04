@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 async function connect() {
     try {
         // await mongoose.connect('mongodb://localhost:27017/store_dev', {});

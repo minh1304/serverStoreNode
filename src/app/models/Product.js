@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-const slug = require('mongoose-slug-generator');
-const mongooseDelete = require('mongoose-delete');
+// const slug = require('mongoose-slug-generator');
+import slug from 'mongoose-slug-generator';
+import mongooseDelete from 'mongoose-delete';
 
 const Schema = mongoose.Schema;
 const ProductSchema = new Schema(

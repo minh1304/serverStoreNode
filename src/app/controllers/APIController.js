@@ -1,11 +1,11 @@
-import Account from '../models/Account';
-import Product from '../models/Product';
-import Order from '../models/Oder';
+import Account from '../models/Account.js';
+import Product from '../models/Product.js';
+import Order from '../models/Oder.js';
 import {
     multipleMongooseToObject,
     mongooseToObject,
-} from '../../util/mongoose';
-const jwt = require('jsonwebtoken');
+} from '../../util/mongoose.js';
+import jwt from 'jsonwebtoken';
 
 const PAGE_SIZE = 4;
 

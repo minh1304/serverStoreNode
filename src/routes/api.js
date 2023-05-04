@@ -1,8 +1,8 @@
 import express, { application } from 'express';
-import Account from '../app/models/Account';
-import APIController from '../app/controllers/APIController';
+import Account from '../app/models/Account.js';
+import APIController from '../app/controllers/APIController.js';
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 //MiddleWare check token
 const checkToken = (req, res, next) => {

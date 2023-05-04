@@ -1,11 +1,12 @@
-var path = require('path');
+import path from 'path';
 import express from 'express';
-const { engine } = require('express-handlebars');
-const methodOverride = require('method-override');
-const morgan = require('morgan');
-import data from './config/db';
+import { engine } from 'express-handlebars';
+import methodOverride from 'method-override';
+import morgan from 'morgan';
+import cors from 'cors';
+import data from './config/db/index.js';
+import { fileURLToPath } from 'url';
 
-const cors = require('cors');
 
 data();
 const app = express();
@@ -15,7 +16,10 @@ const app = express();
 app.use(cors());
 const port = 3000;
 
-import route from './routes';
+import route from './routes/index.js';
+
+// const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(morgan('combined'))

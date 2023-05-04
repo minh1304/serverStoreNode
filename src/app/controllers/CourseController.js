@@ -1,5 +1,5 @@
-import Course from '../models/Course';
-import { mongooseToObject } from '../../util/mongoose';
+import Course from '../models/Course.js';
+import { mongooseToObject } from '../../util/mongoose.js';
 
 class CourseController {
     // [GET] /courses/:slug

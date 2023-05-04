@@ -1,9 +1,9 @@
-import Account from '../models/Account';
+import Account from '../models/Account.js';
 import {
     mongooseToObject,
     multipleMongooseToObject,
-} from '../../util/mongoose';
-const jwt = require('jsonwebtoken');
+} from '../../util/mongoose.js';
+import jwt from 'jsonwebtoken';
 class CourseController {
     // [GET] /login
     show(req, res, next) {

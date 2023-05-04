@@ -1,5 +1,5 @@
-import { multipleMongooseToObject } from '../../util/mongoose';
-import Course from '../models/Course';
+import { multipleMongooseToObject } from '../../util/mongoose.js';
+import Course from '../models/Course.js';
 
 class NewController {
     //[GET] /me/storeCourses

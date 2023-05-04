@@ -1,10 +1,10 @@
-import newsRouter from './news';
-import siteRouter from './site';
-import courseRouter from './course';
-import productRouter from './product';
-import meRouter from './me';
-import loginRouter from './login';
-import apiRouter from './api'
+import newsRouter from './news.js';
+import siteRouter from './site.js';
+import courseRouter from './course.js';
+import productRouter from './product.js';
+import meRouter from './me.js';
+import loginRouter from './login.js';
+import apiRouter from './api.js'
 
 
 function route(app) {

@@ -1,5 +1,5 @@
-import Product from '../models/Product';
-import { mongooseToObject } from '../../util/mongoose';
+import Product from '../models/Product.js';
+import { mongooseToObject } from '../../util/mongoose.js';
 
 class ProductController {
     // [GET] /products/:id
